@@ -41,6 +41,33 @@ namespace LibraryManagementSystemBackend.Controllers
             return CreatedAtAction(nameof(GetBookById), new { id = createBook.Id }, createBook);
         }
 
+        [HttpPut("{id}")]
+
+        public async Task<ActionResult<Book>> UpdateBook(int id, Book book)
+        {
+          var updateBook =   await _bookService.UpdateBook(id, book);
+
+          if(updateBook == null)
+            {
+                return NotFound("Book not found");
+            }
+            return Ok(updateBook);
+            
+        }
+
+        [HttpDelete("{id}")]
+
+        public async Task<ActionResult<Book>> DeleteBook(int id)
+        {
+           var deleteBook = await _bookService.DeleteBook(id);
+
+           if(deleteBook == null)
+            {
+                return NotFound("Book not found");
+            }
+            return Ok(deleteBook);
+        }
+
         
 
     }

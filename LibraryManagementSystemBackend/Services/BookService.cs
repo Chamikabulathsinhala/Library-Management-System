@@ -29,5 +29,38 @@ namespace LibraryManagementSystemBackend.Services
         {
             return await _context.Books.FindAsync(id);           
         }
+
+        public async Task<Book?> UpdateBook(int id, Book book)
+        {
+           var  currentBook = await _context.Books.FindAsync(id);
+
+           if(currentBook == null)
+            {
+                return null;
+            }
+
+            currentBook.Title = book.Title;
+            currentBook.Isbn = book.Isbn;
+            currentBook.Author = book.Author;
+            currentBook.IsAvailable = book.IsAvailable;
+            currentBook.PublicationYear = book.PublicationYear;
+            currentBook.Description = book.Description;
+
+            await _context.SaveChangesAsync();
+            return currentBook;
+        }
+
+        public async Task<Book?> DeleteBook(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if(book == null)
+            {
+                return null;
+            }
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+            return book;
+        }
     }
 }
