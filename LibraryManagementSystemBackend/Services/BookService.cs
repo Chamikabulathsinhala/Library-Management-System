@@ -32,6 +32,8 @@ namespace LibraryManagementSystemBackend.Services
 
         public async Task<Book?> UpdateBook(int id, Book book)
         {
+            try
+            {
            var  currentBook = await _context.Books.FindAsync(id);
 
            if(currentBook == null)
@@ -48,6 +50,12 @@ namespace LibraryManagementSystemBackend.Services
 
             await _context.SaveChangesAsync();
             return currentBook;
+            }
+            catch (DbUpdateException e)
+            {
+                throw new Exception("Database update error: " + e.Message);
+            }
+          
         }
 
         public async Task<Book?> DeleteBook(int id)

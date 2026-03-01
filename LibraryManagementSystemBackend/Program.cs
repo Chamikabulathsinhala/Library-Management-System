@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using LibraryManagementSystemBackend.Data;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using LibraryManagementSystemBackend.Services;
 
 
@@ -12,9 +11,13 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<LibraryDb>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -26,8 +29,6 @@ builder.Services.AddCors(options =>
 });
 
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,7 +36,10 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => {
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Library API V1");
+    c.RoutePrefix = string.Empty;
+});
     
 }
 

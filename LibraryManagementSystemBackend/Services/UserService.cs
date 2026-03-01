@@ -1,40 +1,38 @@
 using LibraryManagementSystemBackend.Data;
 using LibraryManagementSystemBackend.Models;
-using Microsoft.Extensions.DependencyModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementSystemBackend.Services
 {
-    public class UseerService : IUserService
+    public class UserService : IUserService
     {
         private readonly LibraryDb _context;
 
-        public Task<User> AddUser(User user)
+        public UserService(LibraryDb context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<User?> DeleteUser(int id)
+        public async Task<User?> Register(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
 
-        public Task<User?> GetUserById(int id)
+
+         public async Task<User?> Login(string email, string password)
         {
-            throw new NotImplementedException();
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
         }
 
-        public Task<User?> UpdateUser(int id, User user)
+        public async Task<int> GetUserCount()
         {
-            throw new NotImplementedException();
+            return await _context.Users.CountAsync();
         }
 
-        Task<IEnumerable<User>> GetAllUsers(){
-            throw new NotImplementedException();
-        }
+       
 
-        Task<IEnumerable<User>> IUserService.GetAllUsers()
-        {
-            return GetAllUsers();
-        }
+       
     }
 }

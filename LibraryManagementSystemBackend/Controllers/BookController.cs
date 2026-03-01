@@ -19,39 +19,80 @@ namespace LibraryManagementSystemBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
         {
-            var books = await _bookService.GetAllBooks();
-            return Ok(books);
+            try
+            {
+                var books = await _bookService.GetAllBooks();
+                return Ok(books);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message+"server error while fetching books");
+            }
+            
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBookById(int id)
         {
-            var book = await _bookService.GetBookById(id);
-            if (book == null)
+            try
             {
-                return NotFound();
+                 var book = await _bookService.GetBookById(id);
+                if (book == null)
+                {
+                    return NotFound();
+                }
+                return Ok(book);
             }
-            return Ok(book);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message+"server error while fetching book");
+            }
+            
         }
 
         [HttpPost]
         public async Task<ActionResult<Book>> AddBook(Book book)
         {
-            var createBook = await _bookService.AddBook(book);
-            return CreatedAtAction(nameof(GetBookById), new { id = createBook.Id }, createBook);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                    
+                    var createBook = await _bookService.AddBook(book);
+                    return CreatedAtAction(nameof(GetBookById), new { id = createBook.Id }, createBook);
+                
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message+"server error while adding book");
+            }
+            
         }
 
         [HttpPut("{id}")]
 
         public async Task<ActionResult<Book>> UpdateBook(int id, Book book)
         {
-          var updateBook =   await _bookService.UpdateBook(id, book);
-
-          if(updateBook == null)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var updateBook =   await _bookService.UpdateBook(id, book);
+                 if(updateBook == null)
+                 {
                 return NotFound("Book not found");
-            }
+                }
+
             return Ok(updateBook);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message+"server error while updating book");
+            }        
             
         }
 
@@ -59,13 +100,20 @@ namespace LibraryManagementSystemBackend.Controllers
 
         public async Task<ActionResult<Book>> DeleteBook(int id)
         {
-           var deleteBook = await _bookService.DeleteBook(id);
-
-           if(deleteBook == null)
+            try
             {
-                return NotFound("Book not found");
+                var deleteBook = await _bookService.DeleteBook(id);
+                if(deleteBook == null)
+                {
+                    return NotFound("Book not found");
+                }
+                return Ok(deleteBook);
             }
-            return Ok(deleteBook);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message+"server error while deleting book");
+            }
+           
         }
 
         
