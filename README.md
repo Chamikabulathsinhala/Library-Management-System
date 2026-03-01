@@ -1,48 +1,63 @@
-# Library-Management-System
-A full-stack Library Management System built with ASP.NET Core ( .NET 10) and React (TypeScript). This application allows librarians to manage a book catalog with ease, featuring secure authentication and robust data validation.
+# 📚 Library Management System
 
-📄 Documentation
-[Click here to view the Technical Report (PDF)](./Technical_Report_RavinduChamikaBulathsinhala.pdf)
-The report contains a detailed breakdown of the architecture, challenges faced, and the learning curve of transitioning from Java to .NET.
+A full-stack Library Management System developed as part of the Software Engineering Internship assignment for **Expernetic LLC**. This system is built using a modern tech stack consisting of **ASP.NET Core (.NET 10)** and **React (TypeScript)**.
 
-🚀 Key Features
-Full CRUD Operations: Create, Read, Update, and Delete book records.
-User Authentication: Secure Login and Registration system.
-Real-time Search: Instant filtering of books by Title or Author.
-Dual-Layer Validation: Strict server-side checks using .NET Data Annotations and user-friendly frontend feedback via React Hot Toast.
-Responsive Design: Fully functional on both desktop and mobile devices.
+---
 
-🛠️ Tech Stack
-Backend: C# .NET 10 Web API, Entity Framework Core
-Database: SQLite (managed via EF Core)
-Frontend: React (Vite), TypeScript, Tailwind CSS
-Notifications: React Hot Toast
+## 📄 Documentation
+### [Click here to view the Technical Report (PDF)](./Technical_Report_RavinduChamikaBulathsinhala.pdf)
+*The report provides an in-depth summary of the development process, technical architecture, and the challenges faced while transitioning from a Java background to the .NET ecosystem.*
 
-⚙️ Setup & Installation
-1. Prerequisites
-.NET 10 SDK
-Node.js (v18+)
-Git
+---
 
-2. Backend Setup
+## 🚀 Key Features
+* **Full CRUD Operations**: Create, Read, Update, and Delete book records seamlessly.
+* **User Authentication**: Secure Registration and Login system for library management.
+* **Real-time Search**: Efficiently filter the book collection by Title or Author.
+* **Robust Validation**: Implemented dual-layer validation using .NET Data Annotations (Backend) and React Hot Toast (Frontend).
+* **Responsive UI**: A modern and aesthetically pleasing interface built with Tailwind CSS.
+
+---
+
+## 🛠️ Tech Stack
+* **Backend**: C# .NET 10 Web API
+* **Database**: SQLite with Entity Framework Core
+* **Frontend**: React (Vite), TypeScript, Tailwind CSS
+* **Notifications**: React Hot Toast
+
+---
+
+## ⚙️ Setup & Installation
+
+Follow these steps to run the project locally:
+
+### 1. Prerequisites
+* .NET 10 SDK
+* Node.js (v18 or higher)
+* Git
+
+### 2. Backend Setup
+Open your terminal in the root directory and run:
+```bash
 cd LibraryManagementSystemBackend
-
-# Update the database
+# Apply migrations to create the SQLite database
 dotnet ef database update
-
-# Run the API
+# Start the API server
 dotnet run
-API running at: http://localhost:5089
+```
+The Backend API will be running at: http://localhost:5089
 
-3. Frontend Setup
+### 3. Frontend Setup
+Open a new terminal window and run:
+
+```bash
 cd LibraryManagementSystemFrontend
-
-# Install dependencies
+# Install project dependencies
 npm install
-
-# Run the development server
+# Start the React development server
 npm run dev
-Frontend running at: http://localhost:5173
+```
+The Frontend application will be accessible at: http://localhost:5173
 
 👨‍💻 Developed By
 Ravindu Chamika Bulathsinhala
