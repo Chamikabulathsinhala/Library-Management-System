@@ -19,6 +19,13 @@ A full-stack Library Management System developed as part of the Software Enginee
 
 ---
 
+## 🔄 Application Flow & Access Control
+* **Guest Access**: Any user visiting the Home page can view the entire book collection.
+* **Authorized Access**: To perform administrative tasks such as **Adding**, **Editing**, or **Deleting** books, a user must be securely logged into the system.
+* **Session Management**: The system uses `localStorage` to maintain the user session, ensuring a smooth experience across browser refreshes.
+
+---
+
 ## 🛠️ Tech Stack
 * **Backend**: C# .NET 10 Web API
 * **Database**: SQLite with Entity Framework Core
@@ -38,8 +45,11 @@ Follow these steps to run the project locally:
 
 ### 2. Backend Setup
 Open your terminal in the root directory and run:
+
 ```bash
 cd LibraryManagementSystemBackend
+# Install EF Core tools if not already installed
+dotnet tool install --global dotnet-ef
 # Apply migrations to create the SQLite database
 dotnet ef database update
 # Start the API server
