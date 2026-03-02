@@ -8,5 +8,7 @@ namespace LibraryManagementSystemBackend.Services
             Task<User?> Login(string email, string password);
 
             Task<int> GetUserCount();
+
+            Task<bool> DeleteUser(int userId);
     }
 }

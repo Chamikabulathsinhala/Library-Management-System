@@ -36,7 +36,7 @@ namespace LibraryManagementSystemBackend.Controllers
 
             try
             {
-                 var user = await _userService.Login(req.Email, req.Password);
+                var user = await _userService.Login(req.Email, req.Password);
                 if (user == null)
                 {
                     return Unauthorized("Invalid email or password");
@@ -45,7 +45,7 @@ namespace LibraryManagementSystemBackend.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message+"server error while logging in");
+                return BadRequest(e.Message + "server error while logging in");
             }
         }
 
@@ -54,6 +54,18 @@ namespace LibraryManagementSystemBackend.Controllers
         {
             var count = await _userService.GetUserCount();
             return Ok(count);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var result = await _userService.DeleteUser(id);
+            if (!result)
+            {
+                return NotFound($"User with ID {id} not found");
+            }
+
+            return Ok(new { message = "User deleted successfully" });
         }
     }
 }
